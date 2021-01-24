@@ -10,12 +10,11 @@ def get_label():
     with open('labels.dat') as f:
         return f.read().split(',')
 
-
 # print(a[3])
-dir = os.listdir('./test_img')
-for image in dir:
-    img = cv.imread('./test_img/'+image, 1)
-    print(img.shape)
+# dir = os.listdir('./test_img')
+# for image in dir:
+#     img = cv.imread('./test_img/'+image, 1)
+#     print(img.shape)
 # # 读取图片
 # img=cv.imread('./people.jpg',1)
 # hog=cv.HOGDescriptor()

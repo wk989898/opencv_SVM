@@ -7,9 +7,9 @@ from os import path
 train_data = []
 labels = []
 types = None
+
+
 # 获取图像
-
-
 def get_img(_path):
     img_path = path.join(_path)
     types = os.listdir(img_path)
@@ -21,7 +21,6 @@ def get_img(_path):
         label_path = path.join(img_path, file)
         get_data(label_path, index)
     train_SVM()
-# start
 
 
 def train_SVM():
@@ -45,27 +44,22 @@ def get_data(filename, label_type):
         data = np.zeros([len(hist)], dtype=np.float32)
         for i in range(len(hist)):
             data[i] = hist[i][0]
-        # train_SVM(data, 1)
         train_data.append(data)
         labels.append(label_type)
 
 
 # SVM create
-
-
 def create_SVM():
     svm = cv.ml.SVM_create()
     # set params
-    svm.setKernel(cv.ml.SVM_LINEAR)
+    svm.setKernel(cv.ml.SVM_RBF)
     svm.setType(cv.ml.SVM_C_SVC)
     svm.setC(0.1)  # 惩罚因子
-    svm.setGamma(1)  # 核函数
+    svm.setGamma(0.1)  # 核函数
     return svm
 
 # test
-# cat 和 horse 测试
-
-
+# cat 和 truck 测试
 def test():
     cat = path.join('img', 'cat')
     truck = path.join('img', 'truck')
@@ -79,13 +73,11 @@ def test():
     print('save data done!')
 
 # start
-
-
 def start():
     get_img('img')
     print("svm train success!")
 
 
 if __name__ == '__main__':
-    # test()
-    start()
+    test()
+    # start()

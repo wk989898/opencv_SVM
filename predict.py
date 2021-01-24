@@ -37,13 +37,16 @@ def predict_all():
     with open('test_labels.dat', 'r') as f:
         res = f.read().split(' ')
         for i in range(len(result)):
-            if(res[i] == result[i][0]):
-                print('match:',labels[res[i]])
+            a=int(res[i])
+            b=int(result[i][0])
+            if(a == b):
+                print('match:',labels[a])
                 acc += 1
             else:
-                print(labels[int(res[i])], labels[int(result[i][0])])
-    accuracy = acc/len(result)
-    print('there have %d images\naccuracy is %f' % (len(result), accuracy))
+                # print(labels[a], labels[b])
+                continue
+    print('\nthere have %d images' % (len(result)))
+    print('accuracy is {:.2%}'.format(acc/len(result)))
 
 # 预测单幅图像
 
