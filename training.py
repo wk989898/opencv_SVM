@@ -53,31 +53,35 @@ def get_data(filename, label_type):
 
 def create_SVM():
     """
-    /* Default values to train SVM */
-    svm->setCoef0( 0.0 );
-    svm->setDegree( 3 );
-    svm->setTermCriteria( TermCriteria(TermCriteria::MAX_ITER + TermCriteria::EPS, 1000, 1e-3 ) );
-    svm->setGamma( 0 ); 核函数
-    svm->setKernel( SVM::LINEAR );
-    svm->setNu( 0.5 );
-    svm->setP( 0.1 ); // for EPSILON_SVR, epsilon in loss function?
-    svm->setC( 0.01 ); // From paper, soft classifier 惩罚因子
-    svm->setType( SVM::EPS_SVR ); // C_SVC; // EPSILON_SVR; // may be also NU_SVR; // do regression task
+    -degree – Parameter degree of a kernel function (POLY).
+    -gamma – Parameter \gamma of a kernel function (POLY / RBF / SIGMOID).
+    -coef0 – Parameter coef0 of a kernel function (POLY / SIGMOID).
+    -Cvalue – Parameter C of a SVM optimization problem (C_SVC / EPS_SVR / NU_SVR).
+    -nu – Parameter nu of a SVM optimization problem (NU_SVC / ONE_CLASS / NU_SVR).
+    -p – Parameter \epsilon of a SVM optimization problem (EPS_SVR).
+    -class_weights – Optional weights in the C_SVC problem , assigned to particular classes. 
+        They are multiplied by C so the parameter C of class #i becomes class\_weights_i * C. 
+        Thus these weights affect the misclassification penalty for different classes. 
+        The larger weight, the larger penalty on misclassification of data from the corresponding class.
+    -term_crit – Termination criteria of the iterative SVM training procedure 
+        which solves a partial case of constrained quadratic optimization problem. 
+        You can specify tolerance and/or the maximum number of iterations.
     """
     svm = cv.ml.SVM_create()
     # set params
-    svm.setKernel(cv.ml.SVM_LINEAR)
-    svm.setType(cv.ml.SVM_C_SVC)
-    svm.setC(0.5)  
-    # svm.setGamma(0.0001)  
-    # svm.setCoef0()
-    # svm.setDegree ()
+    svm.setKernel(cv.ml.SVM_RBF)
+    svm.setType(cv.ml.SVM_NU_SVC)
+    svm.setC(0.1)  
+    svm.setNu(0.7)  
+    svm.setGamma(0.05)  
+    svm.setCoef0(0)
+    svm.setDegree (3)
     return svm
 
 # test
 # cat 和 dog 测试
 def test():
-    print('dog and cat !')
+    print('dog and cat train!')
     cat = path.join('img', 'cat')
     dog = path.join('img', 'dog')
     get_data(cat,  3)  # cat label为3

@@ -66,6 +66,7 @@ def predict_all():
 
     print('\nthere have %d images' % (len(result)))
     print('accuracy is {:.2%}'.format(acc/len(result)))
+    return acc/len(result)
 
 
 # 预测单幅图像
