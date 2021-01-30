@@ -27,9 +27,10 @@ def train_SVM():
     sample = np.array(train_data, dtype=np.float32)
     response = np.array(labels, dtype=np.int32)
     svm = create_SVM()
+    print('train start...')
     svm.train(sample, cv.ml.ROW_SAMPLE, response)
     svm.save("svm_data.dat")
-    print('save data done!')
+    print('train end\nsave data done!')
 
 
 def get_data(filename, label_type):
@@ -49,22 +50,38 @@ def get_data(filename, label_type):
 
 
 # SVM create
+
 def create_SVM():
+    """
+    /* Default values to train SVM */
+    svm->setCoef0( 0.0 );
+    svm->setDegree( 3 );
+    svm->setTermCriteria( TermCriteria(TermCriteria::MAX_ITER + TermCriteria::EPS, 1000, 1e-3 ) );
+    svm->setGamma( 0 ); 核函数
+    svm->setKernel( SVM::LINEAR );
+    svm->setNu( 0.5 );
+    svm->setP( 0.1 ); // for EPSILON_SVR, epsilon in loss function?
+    svm->setC( 0.01 ); // From paper, soft classifier 惩罚因子
+    svm->setType( SVM::EPS_SVR ); // C_SVC; // EPSILON_SVR; // may be also NU_SVR; // do regression task
+    """
     svm = cv.ml.SVM_create()
     # set params
-    svm.setKernel(cv.ml.SVM_RBF)
+    svm.setKernel(cv.ml.SVM_LINEAR)
     svm.setType(cv.ml.SVM_C_SVC)
-    svm.setC(0.1)  # 惩罚因子
-    svm.setGamma(0.1)  # 核函数
+    svm.setC(0.5)  
+    # svm.setGamma(0.0001)  
+    # svm.setCoef0()
+    # svm.setDegree ()
     return svm
 
 # test
-# cat 和 truck 测试
+# cat 和 dog 测试
 def test():
+    print('dog and cat !')
     cat = path.join('img', 'cat')
-    truck = path.join('img', 'truck')
+    dog = path.join('img', 'dog')
     get_data(cat,  3)  # cat label为3
-    get_data(truck,  9)  # truck label为9
+    get_data(dog,  5)  # dog label为5
     sample = np.array(train_data, dtype=np.float32)
     response = np.array(labels, dtype=np.int32)
     svm = create_SVM()
