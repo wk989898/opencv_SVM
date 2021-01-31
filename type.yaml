@@ -1,0 +1,15 @@
+KernelTypes:
+  -1: CUSTOM  
+  0: LINEAR  
+  1: POLY  
+  2: RBF  
+  3: SIGMOID  
+  4: CHI2  
+  5: INTER 
+  
+Types:
+  100: C_SVC
+  101: NU_SVC 
+  102: ONE_CLASS 
+  103: EPS_SVR 
+  104: NU_SVR 

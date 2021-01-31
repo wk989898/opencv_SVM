@@ -4,6 +4,7 @@ import numpy as np
 import os
 from os import path
 from matplotlib import pyplot as plt
+import yaml
 
 
 def get_label():
@@ -24,7 +25,7 @@ def get_hog(img):
 
 # 预测准确率
 def predict_all():
-    data_set = []
+    data_get = []
     labels=[]
     # labels = get_label()
     images = os.listdir(path.join('./test_img'))
@@ -32,18 +33,18 @@ def predict_all():
         #cat and dog 预测
         if image.startswith('cat'):
             img = cv.imread('./test_img/'+image, 1)
-            data_set.append(get_hog(img))
+            data_get.append(get_hog(img))
             labels.append(3)
         if image.startswith('dog'):
             img = cv.imread('./test_img/'+image, 1)
-            data_set.append(get_hog(img))
+            data_get.append(get_hog(img))
             labels.append(5)
 
         # img = cv.imread('./test_img/'+image, 1)
-        # data_set.append(get_hog(img))
+        # data_get.append(get_hog(img))
 
-    data_set = np.array(data_set, dtype=np.float32)
-    result = svm.predict(data_set)[1]
+    data_get = np.array(data_get, dtype=np.float32)
+    result = svm.predict(data_get)[1]
     acc = 0
     #cat and dog
     for i in range(len(result)):
@@ -63,21 +64,33 @@ def predict_all():
     #         else:
     #             # print(labels[a], labels[b])
     #             continue
-
-    print('\nthere have %d images' % (len(result)))
+    with open('./type.yaml','r') as f:
+        yml=yaml.safe_load(f)
+    KernelTypes=yml['KernelTypes']
+    Types=yml['Types']
+    print(' kernel:%s\n type:%s\n c:%s\n Nu:%s\n Gamma:%s\n Coef0:%s\n Degree:%s'%(
+                        KernelTypes[svm.getKernelType()],
+                        Types[svm.getType()],
+                        svm.getC(),  
+                        svm.getNu(),  
+                        svm.getGamma(),  
+                        svm.getCoef0(),
+                        svm.getDegree()
+    ))
+    print('there have %d images' % (len(result)))
     print('accuracy is {:.2%}'.format(acc/len(result)))
     return acc/len(result)
 
 
 # 预测单幅图像
 def predict_single():
-    data_set = []
+    data_get = []
     dog = cv.imread('./p_dog.jpg', 1)
     cat = cv.imread('./p_cat.jpg', 1)
-    data_set.append(get_hog(dog))
-    data_set.append(get_hog(cat))
-    data_set = np.array(data_set, dtype=np.float32)
-    result = svm.predict(data_set)[1]
+    data_get.append(get_hog(dog))
+    data_get.append(get_hog(cat))
+    data_get = np.array(data_get, dtype=np.float32)
+    result = svm.predict(data_get)[1]
     labels = get_label()
     for i in range(len(result)):
         result[i] = result[i][0]

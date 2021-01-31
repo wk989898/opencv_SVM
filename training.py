@@ -58,9 +58,9 @@ def create_SVM():
     -coef0 – Parameter coef0 of a kernel function (POLY / SIGMOID).
     -Cvalue – Parameter C of a SVM optimization problem (C_SVC / EPS_SVR / NU_SVR).
     -nu – Parameter nu of a SVM optimization problem (NU_SVC / ONE_CLASS / NU_SVR).
-    -p – Parameter \epsilon of a SVM optimization problem (EPS_SVR).
+    -p – Parameter epsilon of a SVM optimization problem (EPS_SVR).
     -class_weights – Optional weights in the C_SVC problem , assigned to particular classes. 
-        They are multiplied by C so the parameter C of class #i becomes class\_weights_i * C. 
+        They are multiplied by C so the parameter C of class #i becomes class_weights_i * C. 
         Thus these weights affect the misclassification penalty for different classes. 
         The larger weight, the larger penalty on misclassification of data from the corresponding class.
     -term_crit – Termination criteria of the iterative SVM training procedure 
@@ -72,10 +72,10 @@ def create_SVM():
     svm.setKernel(cv.ml.SVM_RBF)
     svm.setType(cv.ml.SVM_NU_SVC)
     svm.setC(0.1)  
-    svm.setNu(0.7)  
-    svm.setGamma(0.05)  
-    svm.setCoef0(0)
-    svm.setDegree (3)
+    svm.setNu(0.72)  
+    svm.setGamma(0.073)  
+    svm.setCoef0(2)
+    svm.setDegree (4)
     return svm
 
 # test
