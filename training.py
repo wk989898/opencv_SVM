@@ -72,9 +72,9 @@ def create_SVM():
     svm.setKernel(cv.ml.SVM_RBF)
     svm.setType(cv.ml.SVM_NU_SVC)
     svm.setC(0.1)  
-    svm.setNu(0.72)  
+    svm.setNu(0.68)  
     svm.setGamma(0.073)  
-    svm.setCoef0(2)
+    svm.setCoef0(0)
     svm.setDegree (4)
     return svm
 

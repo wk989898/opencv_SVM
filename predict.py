@@ -12,9 +12,9 @@ def get_label():
         return f.read().split('#')
 
 
-def get_hog(img):
+def get_hog(image):
     # 图像大小设置为64*128
-    img = cv.resize(img, (64, 128))
+    img = cv.resize(image, (64, 128))
     hog = cv.HOGDescriptor()
     gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
     hist = hog.compute(gray)
@@ -97,7 +97,6 @@ def predict_single():
     plt.figure('dog and cat')
     plt.subplot(1, 2, 1)
     plt.imshow(dog)
-
     plt.title(labels[int(result[0])])
     plt.subplot(1, 2, 2)
     plt.imshow(cat)
@@ -109,5 +108,5 @@ def predict_single():
 if __name__ == '__main__':
     svm = cv.ml.SVM_load('./svm_data.dat')
     print('predict start...')
-    # predict_single()
-    predict_all()
+    predict_single()
+    # predict_all()

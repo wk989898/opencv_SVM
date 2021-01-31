@@ -1,5 +1,5 @@
 # Intro
-  基于opencv的svm做的图像分类
+  基于opencv的svm做的图像分类  
   数据集使用[The CIFAR-10 dataset](http://www.cs.toronto.edu/~kriz/cifar.html)
 ### SVM参数简介
 ```
